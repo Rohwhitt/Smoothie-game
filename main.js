@@ -5,6 +5,7 @@ const fruit = document.querySelectorAll(".btn-ingredient");
 const submit = document.querySelector(".btn-submit");
 const check = document.querySelector(".btn");
 const ingredientsModal = document.querySelector(".recipe-ingredients");
+const remake = document.querySelector(".remake");
 
 //create smoothie names and the fruits needed and store as array
 const bananaSmoothie = ["banana", "milk", "yohgurt"];
@@ -54,15 +55,15 @@ for (let i = 0; i < fruit.length; i++) {
   fruit[i].addEventListener("click", function () {
     if (playing) {
       let fruitName = fruit[i].textContent;
-      document.querySelector(fruitName).textContent = "test";
+      //document.querySelector(fruitName).textContent = "test";
       // add to the amount to ingredientAmount
       ingredientAmount++;
       if (recipes[recipeNumber].includes(fruitName)) {
         currentScore++;
-        console.log(currentScore, fruitName, ingredientAmount);
+        console.log(currentScore, fruitName);
       } else {
         currentScore--;
-        console.log(currentScore, fruitName, ingredientAmount);
+        console.log(currentScore, fruitName);
       }
     }
   });
@@ -81,5 +82,8 @@ submit.addEventListener("click", function () {
   }
   console.log(totalScore, recipeNumber);
 });
-//load new recipe
-//reset current score and smoothie
+
+//reset current smoothie
+remake.addEventListener("click", function () {
+  currentScore = 0;
+});
