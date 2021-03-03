@@ -2,19 +2,36 @@ h1 {
   font-size: 50px;
 }
 
-.btn-fruit {
-  width: 300px;
-  height: 300px;
-  background-color: yellow;
-  font-size: 50px;
+.recipe-ingredients {
+  width: 400px;
+  height: 400px;
+  position: absolute;
+  right: 0px;
 }
 
-#mango {
+.btn-ingredient {
+  width: 300px;
+  height: 50px;
+  font-size: 30px;
+}
+.strawberry {
+  background-color: red;
+}
+.banana {
+  background-color: yellow;
+}
+.apple {
+  background-color: springgreen;
+}
+.mango {
   background-color: darkorange;
 }
-
 .btn-submit {
   width: 100px;
   height: 100px;
   background-color: green;
+}
+
+.hidden {
+  display: none;
 }
