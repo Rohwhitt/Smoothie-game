@@ -1,14 +1,14 @@
 "use strict";
 //create a game that allows a person to make a set of smoothies and scores them on their performance
 // create all the query selectors
-const fruit = document.querySelectorAll(".btn-ingredient");
+const ingredientBtn = document.querySelectorAll(".btn-ingredient");
 const submit = document.querySelector(".btn-submit");
 const check = document.querySelector(".btn");
 const ingredientsModal = document.querySelector(".recipe-ingredients");
 const remake = document.querySelector(".remake");
 
 //create smoothie names and the fruits needed and store as array
-const bananaSmoothie = ["banana", "milk", "yohgurt"];
+const bananaSmoothie = ["banana", 1, "milk", 3, "yohgurt", 1];
 const bigBerry = ["blueberry", "raspberry", "strawberry"];
 const fiestyIcy = ["mango", "pinapple", "ice"];
 const summerSmoothie = ["apple", "orange", "pineapple", "mango"];
@@ -32,12 +32,15 @@ const recipes = [
   funNFruity,
   tropical,
 ];
+let ingredientAmount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+//if recipe includes ingredient and ingredient amount[i] = ?
+
+//const amountTest = bananaSmoothie[0 + 1];
 
 //create values.
 let totalScore = 0;
 let currentScore = 0;
 let playing = true;
-let ingredientAmount = 0;
 
 let recipeNumber = 0;
 
@@ -51,14 +54,22 @@ const displayRecipe = function () {
 displayRecipe();
 
 //function which checks what fruit clicked on and checks if its in the recipe array
-for (let i = 0; i < fruit.length; i++) {
-  fruit[i].addEventListener("click", function () {
+for (let i = 0; i < ingredientBtn.length; i++) {
+  ingredientBtn[i].addEventListener("click", function () {
     if (playing) {
-      let fruitName = fruit[i].textContent;
-      //document.querySelector(fruitName).textContent = "test";
+      //get ingredient id and store in variable
+      let ingredientNumber = ingredientBtn[i].id;
+      ingredientAmount[ingredientNumber]++;
+      //
+
+      let fruitName = ingredientBtn[i].textContent;
+      let currentRecipe = recipes[recipeNumber];
+      let ingrQ = currentRecipe.indexOf(fruitName) + 1;
       // add to the amount to ingredientAmount
-      ingredientAmount++;
-      if (recipes[recipeNumber].includes(fruitName)) {
+      if (
+        currentRecipe.includes(fruitName) &&
+        ingredientAmount[ingredientNumber] <= currentRecipe[ingrQ]
+      ) {
         currentScore++;
         console.log(currentScore, fruitName);
       } else {
