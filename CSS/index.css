@@ -32,6 +32,26 @@ h1 {
   background-color: green;
 }
 
+.smoothie {
+  width: 300px;
+  height: 500px;
+  opacity: 0.1;
+  position: absolute;
+}
+
+.yellow {
+  background-color: yellow;
+}
+.orange {
+  background-color: orange;
+}
+.red {
+  background-color: red;
+}
+.green {
+  background-color: green;
+}
+
 .hidden {
   display: none;
 }
