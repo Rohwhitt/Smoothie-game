@@ -2,11 +2,14 @@
 //create a game that allows a person to make a set of smoothies and scores them on their performance
 // create all the query selectors
 const ingredientBtn = document.querySelectorAll(".btn-ingredient");
+const scoreDisplay = document.querySelector("h2");
 const submit = document.querySelector(".btn-submit");
 const check = document.querySelector(".btn");
 const ingredientsModal = document.querySelector(".recipe-ingredients");
 const remake = document.querySelector(".remake");
 const bgColor = document.querySelectorAll(".smoothie");
+const fruitAmount = document.querySelectorAll(".fruitNumber");
+const fruitDisplay = document.querySelectorAll(".fruit");
 //create smoothie names and the fruits needed and store as array
 const bananaSmoothie = ["banana", 2, "milk", 3, "yohgurt", 1];
 const bigBerry = ["blueberry", 2, "raspberry", 2, "strawberry", 2];
@@ -51,6 +54,15 @@ const recipes = [
   funNFruity,
   extremeTropical,
 ];
+const recipeNames = [
+  "bananaSmoothie",
+  "bigBerry",
+  "fiestyIcy",
+  "summerSmoothie",
+  "dairyDose",
+  "funNFruity",
+  "extremeTropical",
+];
 // calculated using ingredientBtn[i].id as position in array
 let ingrAmountAdded = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 //if recipe includes ingredient and ingredient amount[i] = ?
@@ -61,7 +73,6 @@ let ingrAmountAdded = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 let totalScore = 0;
 let currentScore = 0;
 let playing = true;
-
 let recipeNumber = 0;
 
 //display the smoothie name and all the ingredients for 3s then hide
@@ -72,21 +83,40 @@ const displayRecipe = function () {
   }, 3000);
 };
 displayRecipe();
-/*
-const colorChanger = function (opacity) {
-  for (let i = 0; i < bgColor.length; i++) {
-    //changes opacity based off number of clicks
-    bgColor[i].style.opacity = opacity;
-    console.log(opacity);
-  }
+
+//taken out of function for submit
+const getRecipeName = function () {
+  //gives error after goes past array length but works
+  let recipeOrder = recipeNames[recipeNumber];
+  let recipeConvert = recipeOrder.replace(/([A-Z])/g, " $1");
+  let recipeTitle =
+    recipeConvert.charAt(0).toUpperCase() + recipeConvert.slice(1);
+  scoreDisplay.textContent = recipeTitle;
 };
 
-*/
-//one possible way is to use the text content to add that class. have all the divs premade
-//another way is to remove the hidden class from divs.
+let currentRecipe = recipes[recipeNumber];
 
+var nHTML = "";
+
+for (let i = 0; i < currentRecipe.length; i++) {
+  let currentRecipeType = typeof currentRecipe[i];
+  if (currentRecipeType == "string") {
+    document.getElementById("fruitList").innerHTML = nHTML += `<li>${
+      currentRecipe[i]
+    } x${currentRecipe[i + 1]}</li>`;
+    // fruitDisplay[i].textContent = currentRecipe[i];
+  }
+}
+
+/*      currentRecipe.forEach(function (fruitItem) {
+        nHTML += "<li>" + fruitItem + "</li>";
+      });
+      document.getElementById("recipeIngredients").innerHTML =
+        "<ul>" + nHTML + "</ul>";*/
 //function which checks what fruit clicked on and checks if its in the recipe array
 for (let i = 0; i < ingredientBtn.length; i++) {
+  let fruitName = ingredientBtn[i].textContent;
+
   ingredientBtn[i].addEventListener("click", function () {
     if (playing) {
       //get current opacity value
@@ -96,7 +126,6 @@ for (let i = 0; i < ingredientBtn.length; i++) {
       if (opacityValue <= 0.35) {
         opacityValue += 0.1;
         bgColor[i].style.opacity = opacityValue;
-        console.log(opacityValue);
       } else {
         console.log("no");
       }
@@ -104,10 +133,14 @@ for (let i = 0; i < ingredientBtn.length; i++) {
 
       //get ingredient id and store in array
       let ingredientNumber = ingredientBtn[i].id;
-      //add 1 to that position in the array
+      //add 1 to that position in the array and then change text content
       ingrAmountAdded[ingredientNumber]++;
-      //
-      let fruitName = ingredientBtn[i].textContent;
+      fruitAmount[i].textContent = ` x${ingrAmountAdded[ingredientNumber]}`;
+
+      //let fruitName = ingredientBtn[i].textContent;
+
+      //listDisplay();
+      //both already defined. - try fix
       let currentRecipe = recipes[recipeNumber];
       //checks postion in recipie based off fruits name and then +1
       let ingrQ = currentRecipe.indexOf(fruitName) + 1;
@@ -127,25 +160,35 @@ for (let i = 0; i < ingredientBtn.length; i++) {
 }
 
 const inAmount = function () {};
+const clearAll = function () {
+  for (let i = 0; i < bgColor.length; i++) {
+    bgColor[i].classList.add("hidden");
+    bgColor[i].style.opacity = 0.1;
+    currentScore = 0;
+    ingrAmountAdded = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    // error occurs but still works
+    // fruitAmount[i].textContent = "x0";
+  }
+};
+//
+
 //on click submit add current score to total score and move to next recipe
 submit.addEventListener("click", function () {
   totalScore += currentScore;
-  currentScore = 0;
   recipeNumber++;
+  //new recipe Display
+  getRecipeName();
+  //
   ingredientsModal.classList.toggle("hidden");
   displayRecipe();
   if (recipeNumber >= recipes.length) {
     playing = false;
   }
+  clearAll();
   console.log(totalScore, recipeNumber);
 });
 
 //reset current smoothie
 remake.addEventListener("click", function () {
-  currentScore = 0;
-  ingrAmountAdded = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  for (let i = 0; i < bgColor.length; i++) {
-    bgColor[i].classList.add("hidden");
-    bgColor[i].style.opacity = 0.1;
-  }
+  clearAll();
 });
