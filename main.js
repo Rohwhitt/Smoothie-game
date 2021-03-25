@@ -5,11 +5,12 @@ const ingredientBtn = document.querySelectorAll(".btn-ingredient");
 const scoreDisplay = document.querySelector("h2");
 const submit = document.querySelector(".btn-submit");
 const check = document.querySelector(".btn");
-const ingredientsModal = document.querySelector(".recipe-ingredients");
+const ingredientsModal = document.getElementById("fruitList");
 const remake = document.querySelector(".remake");
 const bgColor = document.querySelectorAll(".smoothie");
 const fruitAmount = document.querySelectorAll(".fruitNumber");
 const fruitDisplay = document.querySelectorAll(".fruit");
+const listItem = document.querySelectorAll("li");
 //create smoothie names and the fruits needed and store as array
 const bananaSmoothie = ["banana", 2, "milk", 3, "yohgurt", 1];
 const bigBerry = ["blueberry", 2, "raspberry", 2, "strawberry", 2];
@@ -74,15 +75,9 @@ let totalScore = 0;
 let currentScore = 0;
 let playing = true;
 let recipeNumber = 0;
-
+let nHTML = "";
+let currentRecipe = "";
 //display the smoothie name and all the ingredients for 3s then hide
-const displayRecipe = function () {
-  ingredientsModal.textContent = recipes[recipeNumber];
-  setTimeout(function () {
-    ingredientsModal.classList.add("hidden");
-  }, 3000);
-};
-displayRecipe();
 
 //taken out of function for submit
 const getRecipeName = function () {
@@ -94,19 +89,12 @@ const getRecipeName = function () {
   scoreDisplay.textContent = recipeTitle;
 };
 
-let currentRecipe = recipes[recipeNumber];
-
-var nHTML = "";
-
-for (let i = 0; i < currentRecipe.length; i++) {
-  let currentRecipeType = typeof currentRecipe[i];
-  if (currentRecipeType == "string") {
-    document.getElementById("fruitList").innerHTML = nHTML += `<li>${
-      currentRecipe[i]
-    } x${currentRecipe[i + 1]}</li>`;
-    // fruitDisplay[i].textContent = currentRecipe[i];
-  }
-}
+const displayRecipe = function () {
+  setTimeout(function () {
+    ingredientsModal.classList.add("hidden");
+  }, 9000);
+};
+displayRecipe();
 
 /*      currentRecipe.forEach(function (fruitItem) {
         nHTML += "<li>" + fruitItem + "</li>";
@@ -141,7 +129,7 @@ for (let i = 0; i < ingredientBtn.length; i++) {
 
       //listDisplay();
       //both already defined. - try fix
-      let currentRecipe = recipes[recipeNumber];
+      currentRecipe = recipes[recipeNumber];
       //checks postion in recipie based off fruits name and then +1
       let ingrQ = currentRecipe.indexOf(fruitName) + 1;
       // add to the amount to ingrAmountAdded
@@ -170,14 +158,26 @@ const clearAll = function () {
     // fruitAmount[i].textContent = "x0";
   }
 };
-//
-
+// currentRecipe is the problem. likely in the click function
+const recipeDisplay = function () {
+  for (let i = 0; i < recipes[recipeNumber].length; i += 2) {
+    /* let currentRecipeType = typeof currentRecipe[i];
+    if (currentRecipeType == "string") {*/
+    listItem[i / 2].textContent = `${recipes[recipeNumber][i]} x${
+      recipes[recipeNumber][i + 1]
+    }`;
+    // fruitDisplay[i].textContent = currentRecipe[i];
+    //}
+  }
+};
+recipeDisplay();
 //on click submit add current score to total score and move to next recipe
 submit.addEventListener("click", function () {
   totalScore += currentScore;
   recipeNumber++;
   //new recipe Display
   getRecipeName();
+  recipeDisplay();
   //
   ingredientsModal.classList.toggle("hidden");
   displayRecipe();
@@ -185,6 +185,7 @@ submit.addEventListener("click", function () {
     playing = false;
   }
   clearAll();
+
   console.log(totalScore, recipeNumber);
 });
 
