@@ -11,6 +11,8 @@ const bgColor = document.querySelectorAll(".smoothie");
 const fruitAmount = document.querySelectorAll(".fruitNumber");
 const fruitDisplay = document.querySelectorAll(".fruit");
 const listItem = document.querySelectorAll("li");
+const recipeProgress = document.querySelector("h3");
+const finalScore = document.querySelector(".final-score");
 //create smoothie names and the fruits needed and store as array
 const bananaSmoothie = ["banana", 2, "milk", 3, "yohgurt", 1];
 const bigBerry = ["blueberry", 2, "raspberry", 2, "strawberry", 2];
@@ -68,8 +70,6 @@ const recipeNames = [
 let ingrAmountAdded = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 //if recipe includes ingredient and ingredient amount[i] = ?
 
-//const amountTest = bananaSmoothie[0 + 1];
-
 //create values.
 let totalScore = 0;
 let currentScore = 0;
@@ -81,18 +81,19 @@ let currentRecipe = "";
 
 //taken out of function for submit
 const getRecipeName = function () {
-  //gives error after goes past array length but works
-  let recipeOrder = recipeNames[recipeNumber];
-  let recipeConvert = recipeOrder.replace(/([A-Z])/g, " $1");
-  let recipeTitle =
-    recipeConvert.charAt(0).toUpperCase() + recipeConvert.slice(1);
-  scoreDisplay.textContent = recipeTitle;
+  if (playing) {
+    let recipeOrder = recipeNames[recipeNumber];
+    let recipeConvert = recipeOrder.replace(/([A-Z])/g, " $1");
+    let recipeTitle =
+      recipeConvert.charAt(0).toUpperCase() + recipeConvert.slice(1);
+    scoreDisplay.textContent = recipeTitle;
+  }
 };
 
 const displayRecipe = function () {
   setTimeout(function () {
     ingredientsModal.classList.add("hidden");
-  }, 9000);
+  }, 4000);
 };
 displayRecipe();
 
@@ -147,7 +148,6 @@ for (let i = 0; i < ingredientBtn.length; i++) {
   });
 }
 
-const inAmount = function () {};
 const clearAll = function () {
   for (let i = 0; i < bgColor.length; i++) {
     bgColor[i].classList.add("hidden");
@@ -160,33 +160,53 @@ const clearAll = function () {
 };
 // currentRecipe is the problem. likely in the click function
 const recipeDisplay = function () {
-  for (let i = 0; i < recipes[recipeNumber].length; i += 2) {
-    /* let currentRecipeType = typeof currentRecipe[i];
-    if (currentRecipeType == "string") {*/
-    listItem[i / 2].textContent = `${recipes[recipeNumber][i]} x${
-      recipes[recipeNumber][i + 1]
-    }`;
-    // fruitDisplay[i].textContent = currentRecipe[i];
-    //}
+  if (playing) {
+    for (let i = 0; i < recipes[recipeNumber].length; i += 2) {
+      /* let currentRecipeType = typeof currentRecipe[i];
+      if (currentRecipeType == "string") {*/
+      listItem[i / 2].textContent = `${recipes[recipeNumber][i]} x${
+        recipes[recipeNumber][i + 1]
+      }`;
+      // fruitDisplay[i].textContent = currentRecipe[i];
+      //}
+    }
   }
 };
 recipeDisplay();
+
+const playAgain = function () {
+  recipeNumber = 0;
+  totalScore = 0;
+  clearAll();
+  finalScore.classList.add("hidden");
+  playing = true;
+};
 //on click submit add current score to total score and move to next recipe
 submit.addEventListener("click", function () {
-  totalScore += currentScore;
-  recipeNumber++;
-  //new recipe Display
-  getRecipeName();
-  recipeDisplay();
-  //
-  ingredientsModal.classList.toggle("hidden");
-  displayRecipe();
-  if (recipeNumber >= recipes.length) {
+  if (recipeNumber + 1 >= recipeNames.length) {
     playing = false;
-  }
-  clearAll();
+    totalScore += currentScore;
+    finalScore.classList.remove("hidden");
+    finalScore.textContent = `Your Final Score is ${totalScore} / 60`;
+  } else {
+    totalScore += currentScore;
+    recipeNumber++;
+    //new recipe Display
+    getRecipeName();
+    recipeDisplay();
+    // recipe progress
+    recipeProgress.textContent = `Recipe ${recipeNumber + 1} / ${
+      recipes.length
+    }`;
 
-  console.log(totalScore, recipeNumber);
+    ingredientsModal.classList.toggle("hidden");
+    displayRecipe();
+
+    console.log(recipeNumber, recipeNames.length, playing);
+    clearAll();
+
+    console.log(totalScore, recipeNumber);
+  }
 });
 
 //reset current smoothie
