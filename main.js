@@ -77,7 +77,7 @@ let currentScore = 0;
 let playing = true;
 let recipeNumber = 0;
 let nHTML = "";
-let currentRecipe = "";
+let currentRecipe = recipes[recipeNumber];
 //display the smoothie name and all the ingredients for 3s then hide
 
 //taken out of function for submit
@@ -91,11 +91,6 @@ const getRecipeName = function () {
   }
 };
 
-/*      currentRecipe.forEach(function (fruitItem) {
-        nHTML += "<li>" + fruitItem + "</li>";
-      });
-      document.getElementById("recipeIngredients").innerHTML =
-        "<ul>" + nHTML + "</ul>";*/
 //function which checks what fruit clicked on and checks if its in the recipe array
 for (let i = 0; i < ingredientBtn.length; i++) {
   let fruitName = ingredientBtn[i].textContent;
@@ -121,10 +116,10 @@ for (let i = 0; i < ingredientBtn.length; i++) {
       fruitAmount[i].textContent = ` x${ingrAmountAdded[ingredientNumber]}`;
 
       //let fruitName = ingredientBtn[i].textContent;
-
       //listDisplay();
-      //both already defined. - try fix
-      currentRecipe = recipes[recipeNumber];
+      //already defined. - try fix
+      //currentRecipe = recipes[recipeNumber];
+
       //checks postion in recipie based off fruits name and then +1
       let ingrQ = currentRecipe.indexOf(fruitName) + 1;
       // add to the amount to ingrAmountAdded
@@ -189,6 +184,7 @@ const playAgain = function () {
     finalScore.classList.add("hidden");
     playing = true;
     playAgainBtn.classList.add("hidden");
+    currentRecipe = recipes[recipeNumber];
   });
 };
 playAgain();
@@ -213,7 +209,7 @@ submit.addEventListener("click", function () {
     recipeProgress.textContent = `Recipe ${recipeNumber + 1} / ${
       recipes.length
     }`;
-
+    currentRecipe = recipes[recipeNumber];
     ingredientsModal.classList.toggle("hidden");
 
     console.log(totalScore, recipeNumber);
