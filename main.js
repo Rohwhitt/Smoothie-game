@@ -13,6 +13,7 @@ const fruitDisplay = document.querySelectorAll(".fruit");
 const listItem = document.querySelectorAll("li");
 const recipeProgress = document.querySelector("h3");
 const finalScore = document.querySelector(".final-score");
+const playAgainBtn = document.querySelector(".play-again");
 //create smoothie names and the fruits needed and store as array
 const bananaSmoothie = ["banana", 2, "milk", 3, "yohgurt", 1];
 const bigBerry = ["blueberry", 2, "raspberry", 2, "strawberry", 2];
@@ -90,13 +91,6 @@ const getRecipeName = function () {
   }
 };
 
-const displayRecipe = function () {
-  setTimeout(function () {
-    ingredientsModal.classList.add("hidden");
-  }, 4000);
-};
-displayRecipe();
-
 /*      currentRecipe.forEach(function (fruitItem) {
         nHTML += "<li>" + fruitItem + "</li>";
       });
@@ -149,17 +143,17 @@ for (let i = 0; i < ingredientBtn.length; i++) {
 }
 
 const clearAll = function () {
-  for (let i = 0; i < bgColor.length; i++) {
+  for (let i = 0; i < ingredientBtn.length; i++) {
     bgColor[i].classList.add("hidden");
     bgColor[i].style.opacity = 0.1;
     currentScore = 0;
     ingrAmountAdded = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     // error occurs but still works
-    // fruitAmount[i].textContent = "x0";
+    fruitAmount[i].textContent = "x0";
   }
 };
-// currentRecipe is the problem. likely in the click function
-const recipeDisplay = function () {
+
+const displayRecipe = function () {
   if (playing) {
     for (let i = 0; i < recipes[recipeNumber].length; i += 2) {
       /* let currentRecipeType = typeof currentRecipe[i];
@@ -171,39 +165,56 @@ const recipeDisplay = function () {
       //}
     }
   }
+  setTimeout(function () {
+    ingredientsModal.classList.add("hidden");
+  }, 3000);
 };
-recipeDisplay();
+displayRecipe();
+// currentRecipe is the problem. likely in the click function
 
 const playAgain = function () {
-  recipeNumber = 0;
-  totalScore = 0;
-  clearAll();
-  finalScore.classList.add("hidden");
-  playing = true;
+  playAgainBtn.addEventListener("click", function () {
+    recipeNumber = 0;
+    totalScore = 0;
+    clearAll();
+    getRecipeName();
+    for (let i = 0; i < recipes[recipeNumber].length + 1; i++) {
+      listItem[i].textContent = "-";
+    }
+    recipeProgress.textContent = `Recipe ${recipeNumber + 1} / ${
+      recipes.length
+    }`;
+    ingredientsModal.classList.remove("hidden");
+    displayRecipe();
+    finalScore.classList.add("hidden");
+    playing = true;
+    playAgainBtn.classList.add("hidden");
+  });
 };
+playAgain();
 //on click submit add current score to total score and move to next recipe
 submit.addEventListener("click", function () {
   if (recipeNumber + 1 >= recipeNames.length) {
     playing = false;
     totalScore += currentScore;
     finalScore.classList.remove("hidden");
+    playAgainBtn.classList.remove("hidden");
+    clearAll();
+    playAgain();
     finalScore.textContent = `Your Final Score is ${totalScore} / 60`;
   } else {
     totalScore += currentScore;
     recipeNumber++;
     //new recipe Display
+    clearAll();
     getRecipeName();
-    recipeDisplay();
+    displayRecipe();
     // recipe progress
     recipeProgress.textContent = `Recipe ${recipeNumber + 1} / ${
       recipes.length
     }`;
 
     ingredientsModal.classList.toggle("hidden");
-    displayRecipe();
-
-    console.log(recipeNumber, recipeNames.length, playing);
-    clearAll();
 
     console.log(totalScore, recipeNumber);
   }
