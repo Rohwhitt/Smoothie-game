@@ -101,7 +101,7 @@ for (let i = 0; i < ingredientBtn.length; i++) {
       const elementStyle = getComputedStyle(bgColor[i]);
       let opacityValue = new Number(elementStyle.opacity);
       // check opacity value and add opacity (color changer)
-      if (opacityValue <= 0.35) {
+      if (opacityValue <= 0.6) {
         opacityValue += 0.1;
         bgColor[i].style.opacity = opacityValue;
       } else {
@@ -149,12 +149,13 @@ const clearAll = function () {
 };
 
 const displayRecipe = function () {
+  currentRecipe = recipes[recipeNumber];
   if (playing) {
-    for (let i = 0; i < recipes[recipeNumber].length; i += 2) {
+    for (let i = 0; i < currentRecipe.length; i += 2) {
       /* let currentRecipeType = typeof currentRecipe[i];
       if (currentRecipeType == "string") {*/
-      listItem[i / 2].textContent = `${recipes[recipeNumber][i]} x${
-        recipes[recipeNumber][i + 1]
+      listItem[i / 2].textContent = `${currentRecipe[i]} x${
+        currentRecipe[i + 1]
       }`;
       // fruitDisplay[i].textContent = currentRecipe[i];
       //}
