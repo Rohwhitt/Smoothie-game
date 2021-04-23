@@ -4,13 +4,64 @@
   <link href="CSS/index.css" rel="stylesheet" type="text/css"></link>
 </head>
 <body>
-    <h1>Smoothie Game</h1>
-    <h2>Banana Smoothie</h2>
-    <h3>Recipe 1 / 7</h3>
-  <div class="btn-ingredient strawberry" id='0'>strawberry</div><a class="fruitNumber">x0</a>
-  <div class="btn-ingredient banana" id="1">banana</div><a class="fruitNumber">x0</a>
-  <div class="btn-ingredient mango" id='2'>mango</div><a class="fruitNumber">x0</a>
-  <div class="btn-ingredient apple" id='3'>apple</div><a class="fruitNumber">x0</a>
+
+  <div class="backboard-container">
+    <div class="backboard-text-container">
+      <h1 class="heading-style">Ingredients Added</h1>
+      <h2 class="heading-style">Banana Smoothie</h2>
+
+        <ul>
+          <li>Ice <a class="fruitNumber">x0</a></li>
+          <li>Raspberrys <a class="fruitNumber">x0</a></li>
+          <li>Bananas <a class="fruitNumber">x0</a></li>
+          <li>Strawberrys <a class="fruitNumber">x0</a></li>
+          <li>Blueberrys <a class="fruitNumber">x0</a></li>
+          <li>Chocolate <a class="fruitNumber">x0</a></li>
+          <li>Oranges <a class="fruitNumber">x0</a></li>
+          <li>Mangos <a class="fruitNumber">x0</a></li>
+          <li>Pineapples <a class="fruitNumber">x0</a></li>
+          <li>Yogurt <a class="fruitNumber">x0</a></li>
+          <li>Milk <a class="fruitNumber">x0</a></li>
+          <li>Apple <a class="fruitNumber">x0</a></li>
+        </ul>
+
+    </div>
+    <img src="CSS/Images/ingredient-sign.svg">
+  </div>
+
+  <h3 class="heading-style">Recipe 1 / 7</h3>
+
+  <div class="fruit-position">
+  <div class="fruit-images">
+    <div class="btn-ingredient iceblock small" id="0">iceblock<img src="CSS/Images/iceblock.svg" class="fruit-svg"><img class="shadow-img" src="CSS/Images/shadow.svg"></div>
+    <div class="shadow"></div>
+    <div class="btn-ingredient raspberry small" id="1">raspberry<img src="CSS/Images/raspberry.svg" class="fruit-svg"><img class="shadow-img" src="CSS/Images/shadow.svg"></div>
+    
+    <div class="btn-ingredient banana medium" id="2">banana<img src="CSS/Images/banana.svg" class="fruit-svg"><img class="shadow-img" src="CSS/Images/shadow.svg"></div>
+            
+    <div class="btn-ingredient strawberry small" id="3">strawberry<img src="CSS/Images/strawberry.svg" class="fruit-svg"><img class="shadow-img" src="CSS/Images/shadow.svg"></div>
+  
+    <div class="btn-ingredient blueberry small" id="4">blueberry<img src="CSS/Images/blueberry.svg" class="fruit-svg"><img class="shadow-img" src="CSS/Images/shadow.svg"></div>
+
+    <div class="btn-ingredient chocolate medium" id="5">chocolate<img src="CSS/Images/chocolate.svg" class="fruit-svg"><img class="shadow-img" src="CSS/Images/shadow.svg"></div>
+
+    <div class="btn-ingredient orange medium front" id="6">orange<img src="CSS/Images/orange.svg" class="fruit-svg"><img class="shadow-img" src="CSS/Images/shadow.svg"></div>
+
+    <div class="btn-ingredient mango front" id="7">mango<img src="CSS/Images/mango.svg" class="fruit-svg"><img class="shadow-img" src="CSS/Images/shadow.svg"></div>
+
+    <div class="btn-ingredient pineapple" id="8">pineapple<img src="CSS/Images/pineapple.svg" class="fruit-svg"><img class="shadow-img" src="CSS/Images/shadow.svg"></div>
+
+    <div class="btn-ingredient yogurt medium" id="9">yogurt<img src="CSS/Images/yogurt.svg" class="fruit-svg"><img class="shadow-img" src="CSS/Images/shadow.svg"></div>
+      <!-- Glass Container-->
+      <div class="glass-container">
+        <img src="CSS/Images/glass.svg">
+      </div>
+
+    <div class="btn-ingredient milk" id="10">milk<img src="CSS/Images/milk.svg" class="fruit-svg"><img class="shadow-img" src="CSS/Images/shadow.svg"></div>
+
+    <div class="btn-ingredient apple medium" id="11">apple<img src="CSS/Images/apple.svg" class="fruit-svg"><img class="shadow-img" src="CSS/Images/shadow.svg"></div>
+  </div>
+  </div>
 
   <div id="recipeIngredients">
     <ul id="fruitList">
@@ -25,61 +76,23 @@
   </div>
   <div class="btn-submit">submit</div>
   <div class="remake">remake</div>
-
+  <!-- Background Colors-->
+  <div class="smoothie lightblue hidden"></div>
   <div class="smoothie red hidden"></div>
   <div class="smoothie yellow hidden"></div>
-  <div class="smoothie orange hidden"></div>
-  <div class="smoothie green hidden"></div>
-  <div class="smoothie hidden"></div>
+  <div class="smoothie red hidden"></div>
+  <div class="smoothie blue hidden"></div>
+  <div class="smoothie brown hidden"></div>
+  <div class="smoothie orangec hidden"></div>
+  <div class="smoothie orangec hidden"></div>
+  <div class="smoothie yellow hidden"></div>
+  <div class="smoothie white hidden"></div>
+  <div class="smoothie white hidden"></div>
+  <div class="smoothie lightred hidden"></div>
 
-<div class="backboard-container hidden">
-  <img src="CSS/Images/ingredient-sign.svg">
-</div>
 
-<div class="fruit-position">
-  <div class="fruit-images">
-    <div class="fruit-image-container small">
-      <img src="CSS/Images/iceblock.svg" class="fruit-svg">
-    </div>
-    <div class="fruit-image-container small">
-      <img src="CSS/Images/raspberry.svg" class="fruit-svg">
-    </div>
-    <div class="fruit-image-container">
-      <img src="CSS/Images/banana.svg" class="fruit-svg">
-    </div>
-    <div class="fruit-image-container small">
-      <img src="CSS/Images/strawberry.svg" class="fruit-svg">
-    </div>
-    <div class="fruit-image-container small">
-      <img src="CSS/Images/blueberry.svg" class="fruit-svg">
-    </div>
-    <div class="fruit-image-container small">
-      <img src="CSS/Images/chocolate.svg" class="fruit-svg">
-    </div>
-    <div class="fruit-image-container medium">
-      <img src="CSS/Images/orange.svg" class="fruit-svg">
-    </div>
-    <div class="fruit-image-container">
-      <img src="CSS/Images/mango.svg" class="fruit-svg">
-    </div>
-    <div class="fruit-image-container">
-      <img src="CSS/Images/pineapple.svg" class="fruit-svg">
-    </div>
-    <!-- Glass Container-->
-    <div class="glass-container">
-      <img src="CSS/Images/glass.svg">
-    </div>
-    <div class="fruit-image-container medium">
-      <img src="CSS/Images/yogurt.svg" class="fruit-svg" >
-    </div>
-    <div class="fruit-image-container">
-      <img src="CSS/Images/milk.svg" class="fruit-svg">
-    </div>
-    <div class="fruit-image-container medium">
-      <img src="CSS/Images/apple.svg" class="fruit-svg">
-    </div>
-  </div>
-</div>
+
+
 
   <div class="final-score hidden">Final Score</div>
   <button class="play-again hidden">Play Again</button>

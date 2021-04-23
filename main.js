@@ -10,16 +10,16 @@ const remake = document.querySelector(".remake");
 const bgColor = document.querySelectorAll(".smoothie");
 const fruitAmount = document.querySelectorAll(".fruitNumber");
 const fruitDisplay = document.querySelectorAll(".fruit");
-const listItem = document.querySelectorAll("li");
+const listItem = document.querySelectorAll("#fruitList li");
 const recipeProgress = document.querySelector("h3");
 const finalScore = document.querySelector(".final-score");
 const playAgainBtn = document.querySelector(".play-again");
 //create smoothie names and the fruits needed and store as array
-const bananaSmoothie = ["banana", 2, "milk", 3, "yohgurt", 1];
+const bananaSmoothie = ["banana", 2, "milk", 3, "yogurt", 1];
 const bigBerry = ["blueberry", 2, "raspberry", 2, "strawberry", 2];
 const fiestyIcy = ["mango", 3, "pinapple", 2, "ice", 1];
 const summerSmoothie = ["apple", 3, "orange", 2, "pineapple", 1, "mango", 2];
-const dairyDose = ["milk", 3, "yohgurt", 2, "banana", 1, "chocolate", 2];
+const dairyDose = ["milk", 3, "yogurt", 2, "banana", 1, "chocolate", 2];
 const funNFruity = [
   "mango",
   2,
@@ -68,7 +68,7 @@ const recipeNames = [
   "extremeTropical",
 ];
 // calculated using ingredientBtn[i].id as position in array
-let ingrAmountAdded = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+let ingrAmountAdded = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 //if recipe includes ingredient and ingredient amount[i] = ?
 
 //create values.
