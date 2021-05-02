@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-image: url("Images/bg.jpg");
+  background-image: url("Images/bg.svg");
   background-size: cover;
 }
 
@@ -27,6 +27,11 @@ h2 {
   text-align: center;
 }
 
+h3 {
+  font-family: "chewy";
+  font-size: 50px;
+}
+
 ul {
   columns: 2;
   -webkit-columns: 2;
@@ -43,6 +48,131 @@ li {
   color: white;
 }
 
+.index-title {
+  font-size: 140px;
+  color: rgb(51, 32, 7);
+  margin: 50px auto;
+}
+
+.index-content-container {
+  position: absolute;
+  width: 100%;
+  top: 10%;
+}
+
+.landing-container {
+  width: 70%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.brown-text {
+  color: rgb(51, 32, 7);
+}
+
+.btn-landing-container {
+  display: inline-grid;
+}
+/* how to play modal */
+.overlay {
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 100%;
+  height: 100%;
+  padding-top: 3%;
+  position: absolute;
+  z-index: 0;
+  opacity: 0;
+  transition: all 0.6s ease;
+}
+
+.open {
+  opacity: 1;
+  z-index: 2;
+}
+
+.landing-modal {
+  width: 70%;
+  margin: 0 auto;
+  padding: 30px;
+  box-sizing: border-box;
+  text-align: center;
+  background-color: rgb(183, 234, 152);
+  border: 8px solid rgb(51, 32, 7);
+  border-radius: 50px;
+  z-index: 3;
+}
+
+.landing-modal h3 {
+  font-size: 40px;
+}
+
+/* recipe modal */
+.modal-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  position: absolute;
+  transition: ease 0.5s all;
+  z-index: 2;
+}
+
+.recipe-modal {
+  width: 70%;
+  height: 50%;
+  text-align: center;
+  background-color: rgb(71, 57, 41);
+  border: 8px rgb(51, 32, 7) solid;
+  border-radius: 50px;
+  padding: 0 10%;
+  box-sizing: border-box;
+  color: white;
+  margin: auto;
+  z-index: 3;
+}
+
+.recipe-modal li {
+  list-style: none;
+  font-size: 40px;
+  line-height: 70px;
+}
+
+.recipe-no-container {
+  text-align: center;
+  width: 100%;
+}
+
+/* buttons */
+.btn-container {
+  width: 20%;
+  height: 30%;
+  right: 0;
+  position: absolute;
+  padding: 20px;
+}
+
+.btn-style {
+  border: 8px rgb(51, 32, 7) solid;
+  border-radius: 40px;
+  background-color: rgba(0, 0, 0, 0);
+  text-align: center;
+  text-decoration: none;
+  padding: 20px 40px;
+  margin: 10px 0;
+  line-height: 70px;
+  font-family: "pepper";
+  font-size: 80px;
+  color: rgb(51, 32, 7);
+}
+
+.btn-style:hover {
+  background-color: rgb(71, 57, 41);
+  color: white;
+  cursor: pointer;
+  transition: 0.2s all;
+}
+
+/* fruit and glass */
 .glass-position {
   width: 100%;
   height: 50%;
@@ -50,12 +180,16 @@ li {
 }
 .glass-container {
   width: 20%;
-  text-align: center;
+  height: 200%;
+  display: flex;
+  justify-content: center;
   position: relative;
 }
 
 .glass-container img {
   max-width: 80%;
+  bottom: 0;
+  position: absolute;
 }
 
 .fruit-svg {
@@ -67,11 +201,34 @@ li {
   z-index: 1;
 }
 
+.fruit-position {
+  width: 100%;
+  height: 40%;
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
+}
+.fruit-images {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap-reverse;
+  height: 100%;
+}
+
 .shadow-img {
   position: absolute;
   width: 90%;
   bottom: 0;
   left: 10px;
+}
+
+.btn-ingredient {
+  height: 45%;
+  width: 14%;
+  font-size: 0px;
+  margin: 0 12px 12px 12px;
+  position: relative;
+  display: inline-block;
 }
 
 .fruit-svg:hover {
@@ -89,16 +246,18 @@ li {
   opacity: 0.8;
   left: 0;
 }
-/*
+
+.front {
+  z-index: 2;
+}
+
 .medium {
-  max-width: 90%;
+  width: 14%;
 }
-
 .small {
-  max-width: 80%;
+  width: 8%;
 }
-*/
-
+/* backboard text and container */
 .backboard-container {
   width: 30%;
   top: -2px;
@@ -121,40 +280,6 @@ li {
   line-height: 50px;
 }
 
-.fruit-position {
-  width: 100%;
-  height: 40%;
-  position: absolute;
-  bottom: 0;
-  z-index: 1;
-}
-.fruit-images {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap-reverse;
-  height: 100%;
-}
-
-.btn-ingredient {
-  height: 45%;
-  width: 14%;
-  font-size: 0px;
-  margin: 0 12px 12px 12px;
-  position: relative;
-  display: inline-block;
-}
-
-.front {
-  z-index: 2;
-}
-
-.medium {
-  width: 14%;
-}
-.small {
-  width: 8%;
-}
-
 .table-bg {
   position: absolute;
   z-index: 0;
@@ -168,18 +293,86 @@ li {
   position: absolute;
   right: 0px;
 }
-
-.btn-submit {
-  width: 100px;
-  height: 100px;
-  background-color: green;
+/*
+.leaves-container {
+  width: 8%;
+  height: 20%;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 30%;
 }
 
+.leaves-container img {
+  margin-top: -30px;
+  transform-origin: top left;
+  animation: leaves-sway 10s ease-in-out infinite;
+}
+
+/* smoothie colors */
 .smoothie {
-  width: 300px;
-  height: 500px;
+  /*width: 300px;
+  height: 500px; */
   opacity: 0.2;
   position: absolute;
+}
+
+.liquid-box-container {
+  width: 100%;
+  height: 45%;
+  top: 10%;
+  position: relative;
+}
+
+.liquid-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: #beef86;
+  border-radius: 42%;
+}
+
+/* animations */
+.splash-animation {
+  animation: splash 2.5s ease-out;
+  animation-fill-mode: forwards;
+}
+.fill-animation {
+  animation: fill 2.5s ease-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fill {
+  0% {
+    transform: translateY(50px) rotate(0deg) scale(1, 1);
+  }
+
+  100% {
+    transform: translateY(-280px) rotate(360deg) scale(1, 1);
+  }
+}
+
+@keyframes splash {
+  0% {
+    transform: translateY(-150px) rotate(0deg);
+  }
+  100% {
+    transform: translateY(-280px) rotate(360deg);
+  }
+}
+
+@keyframes leaves-sway {
+  0% {
+    transform: translate(30px, 0) rotate(10deg);
+  }
+  50% {
+    transform: translate(-30px, 0) rotate(-10deg);
+  }
+  100% {
+    transform: translate(30px, 0) rotate(10deg);
+  }
 }
 
 .lightblue {
@@ -206,7 +399,7 @@ li {
 .lightred {
   background-color: lightcoral;
 }
-
+/* hidden */
 .hidden {
   display: none;
 }
