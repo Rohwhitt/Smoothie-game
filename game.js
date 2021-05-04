@@ -8,18 +8,22 @@ const check = document.querySelector(".btn");
 const ingredientsModal = document.querySelector(".modal-container");
 const remake = document.querySelector(".remake");
 const bgColor = document.querySelectorAll(".smoothie");
+const bgGlassColor = document.querySelector(".bg-glass");
 const liquidBox = document.querySelector(".liquid-box");
 const fruitAmount = document.querySelectorAll(".fruitNumber");
+const fruitAmountStyle = document.querySelectorAll("#fruits-added li");
 const fruitDisplay = document.querySelectorAll(".fruit");
 const listItem = document.querySelectorAll("#fruitList li");
 const listModal = document.querySelector(".modal-container");
-const recipeProgress = document.querySelector("h3");
+const modalButton = document.querySelector(".show-modal");
+const modalPopup = document.querySelector(".overlay");
+const recipeProgress = document.querySelector(".recipe-progress");
 const finalScore = document.querySelector(".final-score");
 const playAgainBtn = document.querySelector(".play-again");
 //create smoothie names and the fruits needed and store as array
 const bananaSmoothie = ["banana", 2, "milk", 3, "yogurt", 1];
 const bigBerry = ["blueberry", 2, "raspberry", 2, "strawberry", 2];
-const fiestyIcy = ["mango", 3, "pinapple", 2, "ice", 1];
+const fiestyIcy = ["mango", 3, "pineapple", 2, "ice", 1];
 const summerSmoothie = ["apple", 3, "orange", 2, "pineapple", 1, "mango", 2];
 const dairyDose = ["milk", 3, "yogurt", 2, "banana", 1, "chocolate", 2];
 const funNFruity = [
@@ -93,6 +97,17 @@ const getRecipeName = function () {
   }
 };
 
+//function for toggling modals to show or hide
+const modalToggle = function () {
+  modalButton.addEventListener("click", function () {
+    modalPopup.classList.add("open");
+  });
+
+  modalPopup.addEventListener("click", function () {
+    modalPopup.classList.remove("open");
+  });
+};
+
 //function which checks what fruit clicked on and checks if its in the recipe array
 for (let i = 0; i < ingredientBtn.length; i++) {
   let fruitName = ingredientBtn[i].textContent;
@@ -117,6 +132,7 @@ for (let i = 0; i < ingredientBtn.length; i++) {
         liquidBox.classList.add("clicked");
         liquidBox.classList.remove("splash-animation");
         liquidBox.classList.add("fill-animation");
+        bgGlassColor.style.opacity = "1";
       }
 
       bgColor[i].classList.remove("hidden");
@@ -126,6 +142,7 @@ for (let i = 0; i < ingredientBtn.length; i++) {
       //add 1 to that position in the array and then change text content
       ingrAmountAdded[ingredientNumber]++;
       fruitAmount[i].textContent = ` x${ingrAmountAdded[ingredientNumber]}`;
+      fruitAmountStyle[i].style.color = "rgb(173, 255, 144)";
 
       //let fruitName = ingredientBtn[i].textContent;
       //listDisplay();
@@ -153,10 +170,15 @@ const clearAll = function () {
   for (let i = 0; i < ingredientBtn.length; i++) {
     bgColor[i].classList.add("hidden");
     bgColor[i].style.opacity = 0.1;
+    liquidBox.classList.remove("clicked");
+    liquidBox.classList.remove("fill-animation");
+    liquidBox.classList.remove("splash-animation");
+    bgGlassColor.style.opacity = "0";
     currentScore = 0;
-    ingrAmountAdded = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    ingrAmountAdded = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     // error occurs but still works
     fruitAmount[i].textContent = "x0";
+    fruitAmountStyle[i].style.color = "white";
   }
 };
 
@@ -194,9 +216,8 @@ const playAgain = function () {
     }`;
     ingredientsModal.classList.remove("hidden");
     displayRecipe();
-    finalScore.classList.add("hidden");
+    modalPopup.classList.remove("open");
     playing = true;
-    playAgainBtn.classList.add("hidden");
     currentRecipe = recipes[recipeNumber];
   });
 };
@@ -206,8 +227,7 @@ submit.addEventListener("click", function () {
   if (recipeNumber + 1 >= recipeNames.length) {
     playing = false;
     totalScore += currentScore;
-    finalScore.classList.remove("hidden");
-    playAgainBtn.classList.remove("hidden");
+    modalPopup.classList.add("open");
     clearAll();
     playAgain();
     finalScore.textContent = `Your Final Score is ${totalScore} / 60`;
