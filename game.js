@@ -1,10 +1,8 @@
 "use strict";
-//create a game that allows a person to make a set of smoothies and scores them on their performance
-// create all the query selectors
+
 const ingredientBtn = document.querySelectorAll(".btn-ingredient");
 const scoreDisplay = document.querySelector("h2");
 const submit = document.querySelector(".btn-submit");
-const check = document.querySelector(".btn");
 const ingredientsModal = document.querySelector(".modal-container");
 const remake = document.querySelector(".remake");
 const bgColor = document.querySelectorAll(".smoothie");
@@ -12,14 +10,12 @@ const bgGlassColor = document.querySelector(".bg-glass");
 const liquidBox = document.querySelector(".liquid-box");
 const fruitAmount = document.querySelectorAll(".fruitNumber");
 const fruitAmountStyle = document.querySelectorAll("#fruits-added li");
-const fruitDisplay = document.querySelectorAll(".fruit");
 const listItem = document.querySelectorAll("#fruitList li");
-const listModal = document.querySelector(".modal-container");
-const modalButton = document.querySelector(".show-modal");
 const modalPopup = document.querySelector(".overlay");
 const recipeProgress = document.querySelector(".recipe-progress");
 const finalScore = document.querySelector(".final-score");
 const playAgainBtn = document.querySelector(".play-again");
+
 //create smoothie names and the fruits needed and store as array
 const bananaSmoothie = ["banana", 2, "milk", 3, "yogurt", 1];
 const bigBerry = ["blueberry", 2, "raspberry", 2, "strawberry", 2];
@@ -45,7 +41,7 @@ const extremeTropical = [
   4,
   "mango",
   3,
-  "Pineapple",
+  "pineapple",
   3,
   "ice",
   2,
@@ -75,7 +71,6 @@ const recipeNames = [
 ];
 // calculated using ingredientBtn[i].id as position in array
 let ingrAmountAdded = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-//if recipe includes ingredient and ingredient amount[i] = ?
 
 //create values.
 let totalScore = 0;
@@ -83,10 +78,10 @@ let currentScore = 0;
 let playing = true;
 let recipeNumber = 0;
 let nHTML = "";
+let timeDisplay = 6000;
 let currentRecipe = recipes[recipeNumber];
-//display the smoothie name and all the ingredients for 3s then hide
 
-//taken out of function for submit
+// function uses recipeNames[recipeNumber] and converts them to have caps and spaces
 const getRecipeName = function () {
   if (playing) {
     let recipeOrder = recipeNames[recipeNumber];
@@ -97,18 +92,7 @@ const getRecipeName = function () {
   }
 };
 
-//function for toggling modals to show or hide
-const modalToggle = function () {
-  modalButton.addEventListener("click", function () {
-    modalPopup.classList.add("open");
-  });
-
-  modalPopup.addEventListener("click", function () {
-    modalPopup.classList.remove("open");
-  });
-};
-
-//function which checks what fruit clicked on and checks if its in the recipe array
+//function which loops through arrays when fruit is clicked
 for (let i = 0; i < ingredientBtn.length; i++) {
   let fruitName = ingredientBtn[i].textContent;
 
@@ -124,7 +108,7 @@ for (let i = 0; i < ingredientBtn.length; i++) {
       } else {
         console.log("no");
       }
-
+      // adds or removes liquid animation classes
       if (liquidBox.classList.contains("clicked")) {
         liquidBox.classList.remove("fill-animation");
         liquidBox.classList.add("splash-animation");
@@ -134,24 +118,20 @@ for (let i = 0; i < ingredientBtn.length; i++) {
         liquidBox.classList.add("fill-animation");
         bgGlassColor.style.opacity = "1";
       }
-
+      //shows the appropriate color
       bgColor[i].classList.remove("hidden");
 
       //get ingredient id and store in array
       let ingredientNumber = ingredientBtn[i].id;
       //add 1 to that position in the array and then change text content
       ingrAmountAdded[ingredientNumber]++;
+      //display fruit amounts and change color
       fruitAmount[i].textContent = ` x${ingrAmountAdded[ingredientNumber]}`;
       fruitAmountStyle[i].style.color = "rgb(173, 255, 144)";
 
-      //let fruitName = ingredientBtn[i].textContent;
-      //listDisplay();
-      //already defined. - try fix
-      //currentRecipe = recipes[recipeNumber];
-
       //checks postion in recipie based off fruits name and then +1
       let ingrQ = currentRecipe.indexOf(fruitName) + 1;
-      // add to the amount to ingrAmountAdded
+      // check if current recipe includes the fruit clicked and add to currentScore
       if (
         currentRecipe.includes(fruitName) &&
         ingrAmountAdded[ingredientNumber] <= currentRecipe[ingrQ]
@@ -166,6 +146,7 @@ for (let i = 0; i < ingredientBtn.length; i++) {
   });
 }
 
+//Reset all visual styling and amounts added
 const clearAll = function () {
   for (let i = 0; i < ingredientBtn.length; i++) {
     bgColor[i].classList.add("hidden");
@@ -176,44 +157,45 @@ const clearAll = function () {
     bgGlassColor.style.opacity = "0";
     currentScore = 0;
     ingrAmountAdded = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    // error occurs but still works
     fruitAmount[i].textContent = "x0";
     fruitAmountStyle[i].style.color = "white";
   }
 };
 
-const displayRecipe = function () {
+//function to display current recipe for limited time
+const displayRecipe = function (timeDisplay) {
   currentRecipe = recipes[recipeNumber];
   if (playing) {
     for (let i = 0; i < currentRecipe.length; i += 2) {
-      /* let currentRecipeType = typeof currentRecipe[i];
-      if (currentRecipeType == "string") {*/
+      // creates a list item and displays fruit and amount
       listItem[i / 2].textContent = `${currentRecipe[i]} x${
         currentRecipe[i + 1]
       }`;
-      // fruitDisplay[i].textContent = currentRecipe[i];
-      //}
     }
   }
+  // timer for display based of timeDisplay (time calculated with submit)
   setTimeout(function () {
     ingredientsModal.classList.add("hidden");
-  }, 1000);
+  }, timeDisplay);
 };
-displayRecipe();
-// currentRecipe is the problem. likely in the click function
+displayRecipe(timeDisplay);
 
+// Function which resets everything on play again clicked
 const playAgain = function () {
   playAgainBtn.addEventListener("click", function () {
     recipeNumber = 0;
     totalScore = 0;
     clearAll();
     getRecipeName();
+    //reset all list items for recipes to -
     for (let i = 0; i < recipes[recipeNumber].length + 1; i++) {
       listItem[i].textContent = "-";
     }
+    // reset text content for recipe number
     recipeProgress.textContent = `Recipe ${recipeNumber + 1} / ${
       recipes.length
     }`;
+    // close modal and set playing to true
     ingredientsModal.classList.remove("hidden");
     displayRecipe();
     modalPopup.classList.remove("open");
@@ -222,8 +204,10 @@ const playAgain = function () {
   });
 };
 playAgain();
-//on click submit add current score to total score and move to next recipe
+
+//Function for send smoothie. Also handles final score
 submit.addEventListener("click", function () {
+  //check if all recipes have been played
   if (recipeNumber + 1 >= recipeNames.length) {
     playing = false;
     totalScore += currentScore;
@@ -234,22 +218,27 @@ submit.addEventListener("click", function () {
   } else {
     totalScore += currentScore;
     recipeNumber++;
-    //new recipe Display
     clearAll();
     getRecipeName();
-    displayRecipe();
-    // recipe progress
+    currentRecipe = recipes[recipeNumber];
+
+    //Check recipeNumber and set time to display
+    if (recipeNumber <= 2) {
+      timeDisplay = 6000;
+    } else if (recipeNumber > 2 && recipeNumber <= 5) {
+      timeDisplay = 10000;
+    } else {
+      timeDisplay = 15000;
+    }
+    displayRecipe(timeDisplay);
     recipeProgress.textContent = `Recipe ${recipeNumber + 1} / ${
       recipes.length
     }`;
-    currentRecipe = recipes[recipeNumber];
     ingredientsModal.classList.toggle("hidden");
-
-    console.log(totalScore, recipeNumber);
   }
 });
 
-//reset current smoothie
+//Function for remaking smoothie
 remake.addEventListener("click", function () {
   clearAll();
 });
